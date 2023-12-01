@@ -1,0 +1,95 @@
+QUES 1:
+
+**Original Feature (n)**: The impact of the original feature in the new model is likely to be similar to its impact in the original model. If the original feature was important in predicting the target variable, the new model would assign a similar level of importance.
+**Duplicated Feature (n+1)**: When you duplicate a feature (copy it into a new feature), the duplicated feature in the new model is likely to have a weight close to the weight of the original feature in the original model. Essentially, the model might treat the duplicated information similarly to the original.
+**Intercept Term**: The intercept term in the new model might change. Introducing a duplicated feature could shift the decision boundary (the intercept) because you've added redundant information. The extent of this change depends on how relevant the duplicated feature is to predicting the target variable.
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+QUES 2:
+To determine the statistical significance of the click-through rates (CTR) for the different email templates, you can perform a hypothesis test. Let's use the null hypothesis that the CTR of each template is equal to the CTR of the control template A. The alternative hypothesis is that the CTR of a template is different from that of A.
+The hypotheses for each template (B, C, D, E) compared to A are as follows:
+H0: The CTR of the template is equal to the CTR of A.
+H1 : The CTR of the template is different from the CTR of A.
+
+Given the data provided:
+A: 10% CTR
+B: 7% CTR
+C: 8.5% CTR
+D: 12% CTR
+E: 14% CTR
+Now, let's analyze the results:
+Comparing CTRs:
+B: Cannot reject the null hypothesis that B has the same CTR as A.
+C: Cannot reject the null hypothesis that C has the same CTR as A.
+D: Reject the null hypothesis that D has the same CTR as A.
+E: Reject the null hypothesis that E has the same CTR as A.
+Interpretation:
+We can conclude with over 95% confidence that E has a higher CTR than A.
+We cannot make a conclusive statement about B and C compared to A.
+We can conclude with over 95% confidence that D has a higher CTR than A.
+So, the correct statement is:
+2. E is better than A with over 95% confidence. B is inconclusive, C is inconclusive, and D is better than A with over 95% confidence. You need to run the test for longer to determine where C and D compare to A with 95% confidence.
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+QUES 3
+
+In logistic regression, the computational cost of each gradient descent iteration is determined by the number of non-zero entries in the feature vectors, as well as the number of features and training examples. Let's break down the components of the computational cost:
+**Forward Pass (Prediction)**: In the forward pass, you compute the predicted probabilities for each training example. For sparse data, you only need to consider the non-zero entries. This operation has a time complexity of O(k * m), where k is the average number of non-zero entries per training example, and m is the number of training examples.
+**Compute Gradient**: Computing the gradient involves taking the derivative of the cost function with respect to each parameter. In logistic regression, this typically involves summing over all training examples. For sparse data, you only need to consider the non-zero entries. The time complexity for this operation is O(k * m * n), where n is the number of features.
+**Update Parameters**: Updating the parameters involves adjusting them in the direction that minimizes the cost. This operation has a time complexity of O(n), where n is the number of features.
+
+Time complexity: O(k*m*n)
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+QUES 4
+
+
+1. **Running V1 on 1 Million Random Stories:**
+   - *Pros:* This approach focuses on uncertain cases, as it selects stories where the V1 classifier's output is closest to the decision boundary. It captures instances where the model is unsure and likely to make errors.
+   - *Cons:* It assumes that the uncertainty captured by V1 is relevant to V2. If V1's uncertainty is due to noise or specific characteristics of the training data, it might not generalize well.
+
+2. **Getting 10k Random Labeled Stories:**
+   - *Pros:* This approach provides a diverse set of random stories, which may help V2 generalize well across different topics and writing styles.
+   - *Cons:* It might include easy examples that the model has already learned well from the original 10,000 stories. It may not focus on areas where the model struggles or is uncertain.
+
+3. **Labeling 1 Million Random Stories, Selecting Wrong and Farthest from Decision Boundary:**
+   - *Pros:* This approach targets cases where V1 makes significant errors and selects examples far from the decision boundary. It helps identify challenging cases for the model.
+   - *Cons:* Labeling 1 million stories is resource-intensive. The assumption here is that V1's mistakes on these stories will be relevant and challenging for V2. It may not capture errors that arise from different sources.
+
+**Likely Ranking of Models Based on Accuracy:**
+- The first approach is likely to improve the model's performance by focusing on uncertain cases. It may lead to better generalization, especially if V1's uncertainty aligns with challenging cases for V2.
+- The third approach could also be effective as it targets cases where V1 makes significant errors. However, the resource-intensive labeling of 1 million stories might be impractical.
+- The second approach, while providing a diverse set of stories, may not contribute as much to improving the model's performance if it includes many examples already well-covered by the original 10,000 stories.
+
+ the ranking of models based on accuracy is likely to be:
+1. Approach 1 (Running V1 on 1 Million Random Stories)
+2. Approach 3 (Labeling 1 Million Stories, Selecting Wrong and Farthest from Decision Boundary)
+3. Approach 2 (Getting 10k Random Labeled Stories)
+
+The actual impact on accuracy would depend on the characteristics of the data and the generalization capabilities of the models. It's advisable to experiment and evaluate the models with the additional data to determine the most effective approach empirically.
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+QUES 5 
+
+
+Maximum Likelihood Estimate (MLE):
+  - The Maximum Likelihood Estimate is a straightforward estimate of the probability p based on observed data.
+  - MLE is calculated as the ratio of the number of heads to the total number of coin tosses = k/n
+
+Bayesian Estimate:
+  - In Bayesian estimation, we assume a uniform prior, resulting in a Beta distribution for the posterior.
+  - The Bayesian Estimate is the expected value (mean) of the posterior distribution. 
+  - It is given by: (k+1)/(n+2) where k is the number of heads and n is the total number of coin tosses.
+
+Maximum A Posteriori (MAP) Estimate:
+  - The MAP Estimate is also based on Bayesian principles with the same uniform prior.
+  - It corresponds to the mode (peak) of the posterior distribution.
+  - For a uniform prior, the MAP Estimate is the same as the MLE: k/n
+
